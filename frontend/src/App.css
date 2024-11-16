@@ -1,0 +1,65 @@
+html {
+    background-color: #010001;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.banner img {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(80%);
+}
+
+.banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 800px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 60%);
+    pointer-events: none;
+}
+
+/* Song */
+
+.songs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 150px;
+    color: rgb(255, 255, 255);
+}
+
+.card {
+    width: 100%;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.card-title {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+.card-artist {
+    font-size: 1em;
+    color: #ffffff;
+}

@@ -1,5 +1,5 @@
-import Weather from "../pages/Weather";
-import Counter from "../pages/Counter";
+import Profile from "../pages/Profile";
+import Song from "../pages/Song";
 import HomePage from "../pages/Home";
 
 /**
@@ -14,7 +14,7 @@ import HomePage from "../pages/Home";
  * If you've already deployed your app (using `fly launch` or `fly deploy`),
  * you can find the name by running `flyctl status`, under App > Name.
  */
-export const BACKEND_BASE_PATH = 'https://fa23-lec9-demo-soln.fly.dev/api';
+export const BACKEND_BASE_PATH = 'https://accounts.spotify.com/api/token';
 
 export const PATHS: {
     link: string;
@@ -27,13 +27,13 @@ export const PATHS: {
         element: <HomePage />,
     },
     {
-        link: "/weather",
-        label: "Weather",
-        element: <Weather />,
+        link: "/song",
+        label: "Song",
+        element: <Song />,
     },
     {
-        link: "/counter",
-        label: "Counter",
-        element: <Counter />,
+        link: "/profile",
+        label: "Profile",
+        element: <Profile />,
     },
 ];

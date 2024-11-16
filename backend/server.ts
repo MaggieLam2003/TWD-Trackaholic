@@ -1,7 +1,6 @@
 import path from "path";
 import express, { Express } from "express";
 import cors from "cors";
-import { WeatherResponse } from "@full-stack/types";
 import fetch from "node-fetch";
 
 const app: Express = express();
@@ -12,34 +11,36 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
-type WeatherData = {
-    latitude: number;
-    longitude: number;
-    timezone: string;
-    timezone_abbreviation: string;
-    current: {
-        time: string;
-        interval: number;
-        precipitation: number;
-    };
-};
+// app.use((req, res, next) => {
+//     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');  // or 'unsafe-none' or 'credentialless'
+//     next();
+//   });
 
-app.get("/weather", async (req, res) => {
-    console.log("GET /api/weather was called");
+// Get all songs 
+// /tracks/{id}
+app.get("/", async (req, res) => {
     try {
-        const response = await fetch(
-            "https://api.open-meteo.com/v1/forecast?latitude=40.7411&longitude=73.9897&current=precipitation&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&forecast_days=1"
-        );
-        const data = (await response.json()) as WeatherData;
-        const output: WeatherResponse = {
-            raining: data.current.precipitation > 0.5,
-        };
-        res.json(output);
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Something went wrong" });
     }
-});
+  });
+
+// get all playlists of user
+// /playlists/{user_id}
+
+// get all songs in playlist of user
+// /playlists/{playlist_id}
+
+// post song into playlist of user 
+
+// delete song from playlist of user
+
+// post/create new playlist of user
+
+// update playlist name of user
+
 
 app.listen(port, hostname, () => {
     console.log("Listening");

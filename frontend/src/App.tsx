@@ -3,7 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./layouts/RootLayout";
 import { PATHS } from "./constants/Navigation";
-import "./index.css";
+// import "./index.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+
 
 const router = createBrowserRouter([
     {
@@ -19,10 +22,13 @@ const router = createBrowserRouter([
     },
 ]);
 
-export default function App() {
+function App() {
     return (
         <MantineProvider withGlobalStyles withNormalizeCSS>
             <RouterProvider router={router} />
         </MantineProvider>
     );
 }
+
+
+export default App;
