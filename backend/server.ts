@@ -11,35 +11,100 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');  // or 'unsafe-none' or 'credentialless'
-//     next();
-//   });
 
-// Get all songs 
-// /tracks/{id}
-app.get("/", async (req, res) => {
+// Get all albums 
+// GET /albums
+app.get("/albums", async (req, res) => {
     try {
-        
+
+        res.status(200).send({
+        message: `SUCCESS got all albums`,
+    });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Something went wrong" });
     }
   });
 
-// get all playlists of user
-// /playlists/{user_id}
+// Get all tracks on album
+// GET/albums/{id}/tracks
+app.get("/albums/:id/tracks", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS got all albums tracks`,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
 
-// get all songs in playlist of user
-// /playlists/{playlist_id}
+// Get album based off of id
+// GET/albums/{id}
+app.get("/albums/:id", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS got album based off id`,
+        });
+    
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
 
-// post song into playlist of user 
+// Save song to playlist for user
+// POST/playlists/{playlist_id}/tracks
+app.post("/playlists/:playlist_id/tracks", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS saved song to playlist`,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
 
-// delete song from playlist of user
 
-// post/create new playlist of user
+app.get("/playlists/:playlist_id/tracks", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS got all tracks in playlist`,
+        });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
 
-// update playlist name of user
+// Remove song of playlist from user
+// DELETE /playlists/:playlist_id/tracks
+app.delete("/playlists/:playlist_id/tracks", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS removed song from playlist`,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
+
+// Update song of playlist from user
+// PUT /playlists/:playlist_id/tracks
+app.put("/playlists/:playlist_id/tracks", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS updated song in playlist`,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
+
 
 
 app.listen(port, hostname, () => {
