@@ -69,3 +69,23 @@ As a fair warning, this will require a credit card. However, you shouldn't get c
 ### Debugging
 
 If your deployment launch name gets too long. Try going into your (fly.io)[https://fly.io] dashboard and go to `Apps` then delete any current apps you may currently have. Then go back to the console and run `flyctl launch` when asked "Do you want to tweak these settings before proceeding?" type "y" and then change the name to your desired name.
+
+
+## Plan 
+
+Home page
+- Gallery of all albums 
+- albums show up as clickable cards
+
+Album page
+- top of albums page shows the album picture and name
+- below is all the tracks that belong to that album
+- button that allows users to add that song to their liked songs
+
+Profile Page
+- user 
+- all liked songs 
+- can delete song 
+- add song 
+- edit playlist name
+

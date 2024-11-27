@@ -22,26 +22,6 @@ const Album = () => {
     }, [albumId]);
 
     // Make it so that you can like song and add it to playlist/ liked songs 
-    const addToPlaylist = async () => {
-        try {
-            const response = await fetch(`/playlists/${playlistId}/tracks`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ trackId }),
-            });
-
-            if (response.ok) {
-                alert(`Track ${trackId} added to playlist ${playlistId}`);
-            } else {
-                alert('Failed to add track to playlist');
-            }
-        } catch (error) {
-            console.error(error);
-            alert('An error occurred');
-        }
-    };
 
     // get all playlist for user? potentially - or maybe just have 1 playlist for now
     

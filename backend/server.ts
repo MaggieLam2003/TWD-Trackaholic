@@ -34,18 +34,37 @@ app.get("/albums", async (req, res) => {
 app.get("/albums/:albumId/tracks", async (req, res) => {
     const { albumId } = req.params; 
     try {
-      const albumRef = db.collection("Albums").doc(albumId);
-      const snapshot = await db.collection("Tracks").where("album_id", "==", albumRef).get();
-        return res.status(404).json({ error: "No tracks found for this album" });
-      }
-      const tracks = snapshot.docs.map(doc => ({
-        trackId: doc.id,
-        ...doc.data()   
-      }));
-      res.json(tracks); 
+        const albumRef = db.collection("Albums").doc(albumId);
+        const snapshot = await db.collection("Tracks").where("album_id", "==", albumRef).get();
+            return res.status(404).json({ error: "No tracks found for this album" });
+        }
+        const tracks = snapshot.docs.map(doc => ({
+            trackId: doc.id,
+            ...doc.data()   
+        }));
+        res.json(tracks); 
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Something went wrong" });
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+  });
+
+// Get songs based off id 
+// GET /tracks/{id}
+app.get("/tracks/:trackId", async (req, res) => {
+    const { trackId } = req.params; 
+    try {
+    if (!doc.exists) {
+            return res.status(404).json({ error: "Track not found" });
+        }
+        const trackRef = db.collection("Tracks").doc(trackId);
+        const doc = await trackRef.get();
+  
+        const track = doc.data();
+        res.json({ id: doc.id, ...track });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
     }
   });
 
@@ -57,16 +76,16 @@ app.post("/playlists/:playlistId/tracks", async (req, res) => {
     const { playlistId } = req.params; 
     const { trackId } = req.body; 
     try {
-      const trackRef = db.collection("Tracks").doc(trackId); 
-      const playlistRef = db.collection("Playlists").doc(playlistId);
+        const trackRef = db.collection("Tracks").doc(trackId); 
+        const playlistRef = db.collection("Playlists").doc(playlistId);
   
-      await playlistRef.update({
-        tracks: admin.firestore.FieldValue.arrayUnion(trackRef),
-      });
+        await playlistRef.update({
+            tracks: admin.firestore.FieldValue.arrayUnion(trackRef),
+        });
   
-      res.status(200).send({
-        message: `SUCCESS: Track ${trackId} added to playlist ${playlistId}`,
-      });
+        res.status(200).send({
+            message: `SUCCESS: Track ${trackId} added to playlist ${playlistId}`,
+        });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Something went wrong" });
@@ -80,28 +99,28 @@ app.get("/playlists/:playlist_id/tracks", async (req, res) => {
     const { playlist_id } = req.params; // Get playlist ID from the route
   
     try {
-      const playlistRef = db.collection("Playlists").doc(playlist_id);
-      const playlistDoc = await playlistRef.get();
-  
-      if (!playlistDoc.exists) {
-        return res.status(404).json({ error: "Playlist not found" });
-      }
-  
-      const playlistData = playlistDoc.data();
-      const trackRefs = playlistData.tracks || []; 
-  
-      const trackPromises = trackRefs.map((trackRef) => trackRef.get());
-      const trackDocs = await Promise.all(trackPromises);
-  
-      const tracks = trackDocs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  
-      res.status(200).json({
-        message: "SUCCESS got all tracks in playlist",
-        tracks,
-      });
+        const playlistRef = db.collection("Playlists").doc(playlist_id);
+        const playlistDoc = await playlistRef.get();
+    
+        if (!playlistDoc.exists) {
+            return res.status(404).json({ error: "Playlist not found" });
+        }
+    
+        const playlistData = playlistDoc.data();
+        const trackRefs = playlistData.tracks || []; 
+    
+        const trackPromises = trackRefs.map((trackRef) => trackRef.get());
+        const trackDocs = await Promise.all(trackPromises);
+    
+        const tracks = trackDocs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    
+        res.status(200).json({
+            message: "SUCCESS got all tracks in playlist",
+            tracks,
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Something went wrong" });
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
     }
   });
   
@@ -113,19 +132,19 @@ app.delete("/playlists/:playlist_id/tracks", async (req, res) => {
     const { trackId } = req.body; 
   
     try {
-      const trackRef = db.collection("Tracks").doc(trackId); 
-      const playlistRef = db.collection("Playlists").doc(playlist_id); 
-  
-      await playlistRef.update({
-        tracks: admin.firestore.FieldValue.arrayRemove(trackRef),
-      });
-  
-      res.status(200).send({
-        message: `SUCCESS: Track ${trackId} removed from playlist ${playlist_id}`,
-      });
+        const trackRef = db.collection("Tracks").doc(trackId); 
+        const playlistRef = db.collection("Playlists").doc(playlist_id); 
+    
+        await playlistRef.update({
+            // Remove track from playlist
+        });
+    
+        res.status(200).send({
+            message: `SUCCESS: Track ${trackId} removed from playlist ${playlist_id}`,
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Something went wrong" });
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
     }
   });
 
