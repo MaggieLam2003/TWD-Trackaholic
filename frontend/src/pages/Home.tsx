@@ -3,11 +3,22 @@ import Placeholder from '../assets/Placeholder.jpg';
 import Card from '../components/Card';
 import { useEffect, useState } from "react";
 import { BACKEND_BASE_PATH } from '../constants/Navigation.tsx';
-
-const CLIENT_ID= 'c2909f91a5a549dc85bc89731c862375';
-const CLIENT_SECRET="39b1271bfe3946efa83110841869e539";
+import { useAuth } from "../auth/AuthUserProvider";
 
 const HomePage = () => {
+
+    const [albums, setAlbums] = useState([]);
+    const { user } = useAuth();
+
+    useEffect(() => {
+        fetch(BACKEND_BASE_PATH).then((res) => {
+            return res.json();
+        }).then((data) => {
+            setAlbums(data);
+        }).catch(() => {
+            alert("Something went wrong!");
+        });
+    }, []);
 
 
     return (

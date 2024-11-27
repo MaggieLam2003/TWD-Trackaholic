@@ -73,6 +73,8 @@ app.post("/playlists/:playlistId/tracks", async (req, res) => {
     }
   });
 
+
+// Might not need, if we just have one playlist per user
 // Get all songs within a playlist
 app.get("/playlists/:playlist_id/tracks", async (req, res) => {
     const { playlist_id } = req.params; // Get playlist ID from the route
