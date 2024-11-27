@@ -6,6 +6,7 @@ import { PATHS } from "./constants/Navigation";
 // import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
+import AuthUserProvider from "./auth/AuthUserProvider";
 
 
 const router = createBrowserRouter([
@@ -24,9 +25,11 @@ const router = createBrowserRouter([
 
 function App() {
     return (
-        <MantineProvider withGlobalStyles withNormalizeCSS>
-            <RouterProvider router={router} />
-        </MantineProvider>
+        <AuthUserProvider>
+            <MantineProvider withGlobalStyles withNormalizeCSS>
+                <RouterProvider router={router} />
+            </MantineProvider>
+        </AuthUserProvider>
     );
 }
 
