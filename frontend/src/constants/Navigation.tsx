@@ -1,5 +1,5 @@
 import Profile from "../pages/Profile";
-import Song from "../pages/Song";
+import Album from "../pages/Album";
 import HomePage from "../pages/Home";
 
 /**
@@ -16,6 +16,7 @@ import HomePage from "../pages/Home";
  */
 export const BACKEND_BASE_PATH = 'https://accounts.spotify.com/api/token';
 
+
 export const PATHS: {
     link: string;
     label: string;
@@ -27,9 +28,9 @@ export const PATHS: {
         element: <HomePage />,
     },
     {
-        link: "/song",
-        label: "Song",
-        element: <Song />,
+        link: "/album",
+        label: "Album",
+        element: <Album />,
     },
     {
         link: "/profile",

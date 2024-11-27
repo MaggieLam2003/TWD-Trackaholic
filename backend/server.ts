@@ -2,6 +2,7 @@ import path from "path";
 import express, { Express } from "express";
 import cors from "cors";
 import fetch from "node-fetch";
+import { db } from "./firebase";
 
 const app: Express = express();
 
@@ -39,19 +40,7 @@ app.get("/albums/:id/tracks", async (req, res) => {
     }
 });
 
-// Get album based off of id
-// GET/albums/{id}
-app.get("/albums/:id", async (req, res) => {
-    try {
-        res.status(200).send({
-            message: `SUCCESS got album based off id`,
-        });
-    
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Something went wrong" });
-    }
-});
+
 
 // Save song to playlist for user
 // POST/playlists/{playlist_id}/tracks
@@ -104,6 +93,19 @@ app.put("/playlists/:playlist_id/tracks", async (req, res) => {
         res.status(500).json({ error: "Something went wrong" });
     }
 });
+
+// Get song based on id of track
+app.get("/tracks/:id", async (req, res) => {
+    try {
+        res.status(200).send({
+            message: `SUCCESS updated song in playlist`,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
+
 
 
 
