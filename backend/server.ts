@@ -22,7 +22,7 @@ app.get("/albums", async (req, res) => {
             albumId: doc.id,
             ...doc.data() 
         }));
-        res.json(albums); /
+        res.json(albums); 
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Something went wrong" });
@@ -36,6 +36,7 @@ app.get("/albums/:albumId/tracks", async (req, res) => {
     try {
         const albumRef = db.collection("Albums").doc(albumId);
         const snapshot = await db.collection("Tracks").where("album_id", "==", albumRef).get();
+        if (snapshot.empty) {
             return res.status(404).json({ error: "No tracks found for this album" });
         }
         const tracks = snapshot.docs.map(doc => ({
@@ -54,11 +55,11 @@ app.get("/albums/:albumId/tracks", async (req, res) => {
 app.get("/tracks/:trackId", async (req, res) => {
     const { trackId } = req.params; 
     try {
-    if (!doc.exists) {
-            return res.status(404).json({ error: "Track not found" });
-        }
         const trackRef = db.collection("Tracks").doc(trackId);
         const doc = await trackRef.get();
+        if (!doc.exists) {
+            return res.status(404).json({ error: "Track not found" });
+        }
   
         const track = doc.data();
         res.json({ id: doc.id, ...track });
@@ -71,18 +72,18 @@ app.get("/tracks/:trackId", async (req, res) => {
 
 
 // Save song to playlist for user
-// POST/playlists/{playlist_id}/tracks
+// POST /playlists/{playlist_id}/tracks
 app.post("/playlists/:playlistId/tracks", async (req, res) => {
     const { playlistId } = req.params; 
     const { trackId } = req.body; 
     try {
         const trackRef = db.collection("Tracks").doc(trackId); 
         const playlistRef = db.collection("Playlists").doc(playlistId);
-  
+        
         await playlistRef.update({
-            tracks: admin.firestore.FieldValue.arrayUnion(trackRef),
+            // Add track to playlist
         });
-  
+       
         res.status(200).send({
             message: `SUCCESS: Track ${trackId} added to playlist ${playlistId}`,
         });
@@ -90,10 +91,9 @@ app.post("/playlists/:playlistId/tracks", async (req, res) => {
       console.error(error);
       res.status(500).json({ error: "Something went wrong" });
     }
-  });
+});
 
 
-// Might not need, if we just have one playlist per user
 // Get all songs within a playlist
 app.get("/playlists/:playlist_id/tracks", async (req, res) => {
     const { playlist_id } = req.params; // Get playlist ID from the route
@@ -137,6 +137,7 @@ app.delete("/playlists/:playlist_id/tracks", async (req, res) => {
     
         await playlistRef.update({
             // Remove track from playlist
+            
         });
     
         res.status(200).send({

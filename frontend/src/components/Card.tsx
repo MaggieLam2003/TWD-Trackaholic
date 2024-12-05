@@ -1,21 +1,27 @@
 import React from 'react';
-import '../App.css';
 
-
-interface CardProps {
-    imageUrl: string
-    songName: string;
+interface Album {
+    imageUrl: string;
+    name: string;
     artist: string;
+    releaseDate?: string;
 }
 
-const Card: React.FC<CardProps> = ({imageUrl, songName, artist }) => {
+interface CardProps {
+    albums: Album[];
+}
+
+const Card: React.FC<CardProps> = ({ albums }) => {
     return (
-        <div className="card">
-            <img src={imageUrl} alt={songName} className="card-image" />
-            <div className="card-content">
-                <h2 className="card-title">{songName}</h2>
-                <p className="card-artist">{artist}</p>
-            </div>
+        <div className="card-container">
+            {albums.map((album, index) => (
+                <div key={index} className="card">
+                    <img src={album.imageUrl} alt={album.name} />
+                    <h4>{album.name}</h4>
+                    <p>{album.artist}</p>
+                    {album.releaseDate && <p>{album.releaseDate}</p>}
+                </div>
+            ))}
         </div>
     );
 };

@@ -41,3 +41,5 @@ yarn-error.log*
 
 # firebase
 .firebase
+
+service_account.json

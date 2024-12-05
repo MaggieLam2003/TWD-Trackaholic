@@ -1,12 +1,32 @@
 import Placeholder from '../assets/Placeholder.jpg';
 import LikedCard from '../components/Liked-Card';
 
-
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { BACKEND_BASE_PATH } from "../constants/Navigation";
 // Button to add new song 
 // Button to delete song
-// Button to Update song
 
-const Profile = () => (
+
+
+const Profile = () => {
+
+    const params = useParams();
+    const albumId = params.id;
+    const [playlist, setInfo] = useState({});
+
+    useEffect(() => {
+        fetch(`${BACKEND_BASE_PATH}/${albumId}`).then((res) => {
+            return res.json();
+        }).then((data) => {
+            setInfo(data);
+        }).catch(() => {
+            alert("Something went wrong fetching city info!");
+        });
+    }, [albumId]);
+
+    return (
+
     <div>
         <div className='profile'>
             <img src={Placeholder} alt="Profile" className="profile-image" />
@@ -31,17 +51,15 @@ const Profile = () => (
                 </button>
              
                 <LikedCard 
-                    imageUrl={Placeholder} 
-                    songName="Placeholder Song 2" 
-                    artist="Placeholder Artist 2" 
-                    onRemove={() => console.log('Remove song 2')} 
-                    onEdit={() => console.log('Edit song 2')} 
+                    playlist={playlist}
                 />
                 
             </div>
         </div>
         
     </div>
-);
+    );
+
+};
 
 export default Profile;
