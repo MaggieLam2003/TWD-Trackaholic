@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_BASE_PATH } from "../constants/Navigation";
 
-import Placeholder from '../assets/Placeholder.jpg';
 import Track from '../components/Track';
 import "../App.css";
 
