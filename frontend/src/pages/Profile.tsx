@@ -105,9 +105,8 @@ const Profile = () => {
             <div className='profile'>
                 <img src={Placeholder} alt="Profile" className="profile-image" />
                 <div className="user-info">
-                    <h1>(user.displayName)</h1>
-                    <p>MagieMoose123</p>
-                    <p>exampleEmail@gmail.com</p>
+                    <h1>{user?.displayName ?? "Guest"}</h1>
+                    <p>{user?.email ?? "guest@example.com"}</p>
                 </div>
             </div>
             <hr></hr>
