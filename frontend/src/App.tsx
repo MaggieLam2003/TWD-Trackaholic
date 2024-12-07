@@ -4,6 +4,7 @@ import ErrorPage from "./pages/Error";
 import RootLayout from "./layouts/RootLayout";
 import { PATHS } from "./constants/Navigation";
 // import "./index.css";
+import "./App.css";
 
 // import HomePage from "./pages/Home";
 // import AuthUserProvider from "./auth/AuthUserProvider";

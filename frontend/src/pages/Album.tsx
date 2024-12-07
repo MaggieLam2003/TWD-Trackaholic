@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_BASE_PATH } from "../constants/Navigation";
-
+import Placeholder from '../assets/Placeholder.jpg';
 import Track from '../components/Track';
-import "../App.css";
 
 interface Track {
     id: string;
@@ -58,21 +57,20 @@ const Album: React.FC = () => {
         });
     };
 
-    if (!albumInfo) {
-        return <div>Loading...</div>;
-    }
-
+    
     return (
         <div>
-            <div className="album">
-                <img src={Placeholder} className="album-image" alt="Album Cover" />
-                <div className="album-info">
-                    <h1>{albumInfo.name}</h1>
-                    <h2>{albumInfo.artist}</h2>
-                    <h3>Release Date: {albumInfo.releaseDate}</h3>
-                    <p>Tracks: {albumInfo.tracks.length}</p>
+            {albumInfo && (
+                <div className="album">
+                    <img src={Placeholder} className="album-image" alt="Album Cover" />
+                    <div className="album-info">
+                        <h1>{albumInfo.name}</h1>
+                        <h2>{albumInfo.artist}</h2>
+                        <h3>Release Date: {albumInfo.releaseDate}</h3>
+                        <p>Tracks: {albumInfo.tracks.length}</p>
+                    </div>
                 </div>
-            </div>
+            )}
 
             <hr />
 

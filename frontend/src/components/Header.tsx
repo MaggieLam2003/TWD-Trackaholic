@@ -94,16 +94,18 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
     return (
         <Header height={60}>
             <Container className={classes.header}>
-                <ArrowUpCircle size={28} />
-                <Group spacing={5} className={classes.links}>
-                    {items}
-                </Group>
-                <Burger
-                    opened={opened}
-                    onClick={toggle}
-                    className={classes.burger}
-                    size='sm'
-                />
+            <span>Trackaholics</span>
+            <ArrowUpCircle size={28} />
+            
+            <Group spacing={5} className={classes.links}>
+                {items}
+            </Group>
+            <Burger
+                opened={opened}
+                onClick={toggle}
+                className={classes.burger}
+                size='sm'
+            />
             </Container>
         </Header>
     );

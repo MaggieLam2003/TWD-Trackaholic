@@ -21,7 +21,7 @@ const Profile = () => {
         }).then((data) => {
             setInfo(data);
         }).catch(() => {
-            alert("Something went wrong fetching city info!");
+            // alert("Something went wrong fetching city info!");
         });
     }, [albumId]);
 
@@ -32,8 +32,8 @@ const Profile = () => {
             <img src={Placeholder} alt="Profile" className="profile-image" />
             <div className="user-info">
                 <h1>Maggie Lam</h1>
-                <p>Username</p>
-                <p>Email</p>
+                <p>MagieMoose123</p>
+                <p>exampleEmail@gmail.com</p>
             </div>
         </div>
         <hr></hr>
@@ -43,12 +43,12 @@ const Profile = () => {
 
             <div className="songs">
                
-                <button className="add-song-button">
+                {/* <button className="add-song-button">
                     <svg width="26" height="26" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
                     </svg>
                     <p className="add-song-text">Add a new song</p>
-                </button>
+                </button> */}
              
                 <LikedCard 
                     playlist={playlist}
