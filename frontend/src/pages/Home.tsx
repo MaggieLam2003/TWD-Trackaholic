@@ -14,7 +14,7 @@ const placeholderAlbums = [
         title: "Album 1",
         artist: "Artist 1",
         cover: "https://via.placeholder.com/150",
-        imageUrl: "https://via.placeholder.com/150",
+        imageUrl: "../assets/Placeholder-Album.jpeg",
         name: "Album Name 1"
     },
     {
@@ -24,8 +24,49 @@ const placeholderAlbums = [
         cover: "https://via.placeholder.com/150",
         name: "Album Name 1"
     },
+
     {
         id: 3,
+        title: "Album 3",
+        artist: "Artist 3",
+        cover: "https://via.placeholder.com/150",
+        name: "Album Name 1"
+    },
+
+    {
+        id: 4,
+        title: "Album 3",
+        artist: "Artist 3",
+        cover: "https://via.placeholder.com/150",
+        name: "Album Name 1"
+    },
+
+    {
+        id: 5,
+        title: "Album 2",
+        artist: "Artist 2",
+        cover: "https://via.placeholder.com/150",
+        name: "Album Name 1"
+    },
+
+    {
+        id: 6,
+        title: "Album 3",
+        artist: "Artist 3",
+        cover: "https://via.placeholder.com/150",
+        name: "Album Name 1"
+    },
+
+    {
+        id: 7,
+        title: "Album 3",
+        artist: "Artist 3",
+        cover: "https://via.placeholder.com/150",
+        name: "Album Name 1"
+    },
+
+    {
+        id: 8,
         title: "Album 3",
         artist: "Artist 3",
         cover: "https://via.placeholder.com/150",

@@ -73,7 +73,7 @@ const Profile = () => {
                 <div className="songs">
                     
                     
-
+                    {/* Add handleRemoveTrack on the onRemove */}
                     
                     <LikedCard 
                         imageUrl= {placeholderImageUrl}
