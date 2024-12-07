@@ -58,9 +58,8 @@ const Album: React.FC = () => {
             });
     }, [albumId]);
 
-    // Make a add track to playlist post
+    // Make a add track to playlist
 
-    // should only remove IF the track is in the playlist
 
 
 

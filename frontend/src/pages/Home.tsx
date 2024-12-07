@@ -8,6 +8,9 @@ import { BACKEND_BASE_PATH } from '../constants/Navigation.tsx';
 // import { useAuth } from "../auth/AuthUserProvider";
 
 const HomePage = () => {
+
+    // Placeholder- couldn't get the fetch to work????
+
 const placeholderAlbums = [
     {
         id: 1,
@@ -82,7 +85,7 @@ const placeholderAlbums = [
     // const { user } = useAuth();
 
     useEffect(() => {
-        fetch(BACKEND_BASE_PATH)
+        fetch(`${BACKEND_BASE_PATH}/albums`)
         .then((res) => {
             return res.json();
         }).then((data) => {
