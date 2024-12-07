@@ -77,11 +77,20 @@ app.post("/playlists/:playlistId/tracks", async (req, res) => {
     const { playlistId } = req.params; 
     const { trackId } = req.body; 
     try {
-        const trackRef = db.collection("Tracks").doc(trackId); 
+        // const trackRef = db.collection("Tracks").doc(trackId); 
         const playlistRef = db.collection("Playlists").doc(playlistId);
-        
+        const playlistDoc = await playlistRef.get();
+        const playlistData = playlistDoc.data();
+
+        if (!playlistData) {
+            return res.status(404).json({ error: "Playlist data not found" });
+        }
+
+        const updatedTracks = [...(playlistData.tracks || []), trackId];
+
         await playlistRef.update({
             // Add track to playlist - work on this
+            tracks: updatedTracks,
         });
        
         res.status(200).send({
@@ -101,15 +110,15 @@ app.get("/playlists/:playlist_id/tracks", async (req, res) => {
     try {
         const playlistRef = db.collection("Playlists").doc(playlist_id);
         const playlistDoc = await playlistRef.get();
+        const playlistData = playlistDoc.data();
     
         if (!playlistDoc.exists) {
             return res.status(404).json({ error: "Playlist not found" });
         }
+        
+        const trackRefs = (playlistData?.tracks) || []; 
     
-        const playlistData = playlistDoc.data();
-        const trackRefs = playlistData.tracks || []; 
-    
-        const trackPromises = trackRefs.map((trackRef) => trackRef.get());
+        const trackPromises = trackRefs.get();
         const trackDocs = await Promise.all(trackPromises);
     
         const tracks = trackDocs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -128,18 +137,24 @@ app.get("/playlists/:playlist_id/tracks", async (req, res) => {
 // Remove song of playlist from user
 // DELETE /playlists/:playlist_id/tracks
 app.delete("/playlists/:playlist_id/tracks", async (req, res) => {
-    const { playlist_id } = req.params; 
-    const { trackId } = req.body; 
+    const { playlist_id } = req.params;
+    const { trackId } = req.body;
   
     try {
-        const trackRef = db.collection("Tracks").doc(trackId); 
-        const playlistRef = db.collection("Playlists").doc(playlist_id); 
-    
+        const playlistRef = db.collection("Playlists").doc(playlist_id);
+        const playlistDoc = await playlistRef.get();
+
+        if (!playlistDoc.exists) {
+            return res.status(404).json({ error: "Playlist not found" });
+        }
+
+        const playlistData = playlistDoc.data();
+        const updatedTracks = (playlistData?.tracks || []).filter((id: string) => id !== trackId);
+
         await playlistRef.update({
-            // Remove track from playlist
-            
+            tracks: updatedTracks,
         });
-    
+
         res.status(200).send({
             message: `SUCCESS: Track ${trackId} removed from playlist ${playlist_id}`,
         });
@@ -147,7 +162,8 @@ app.delete("/playlists/:playlist_id/tracks", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Something went wrong" });
     }
-  });
+});
+
 
 // Update name of playlist from user
 // PUT /playlists/:playlist_id

@@ -7,7 +7,7 @@ interface LikedCardProps {
     onRemove: () => void;
 }
 
-const LikedCard: React.FC<LikedCardProps> = ({ imageUrl, songName, artist, onRemove, onEdit }) => {
+const LikedCard: React.FC<LikedCardProps> = ({ imageUrl, songName, artist, onRemove}) => {
     return (
         <div className='card'>
             <img src={imageUrl} alt={songName} className="card-image" />

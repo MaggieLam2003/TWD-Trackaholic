@@ -31,7 +31,8 @@ const HomePage = () => {
                 <img src={Banner}/>
                 <div className='banner-text'>
                     <h2> Trackaholics</h2>
-                    <p> The ultimate destination for music lovers to effortlessly organize, rediscover, and curate their favorite songs—all in one place</p>
+                    <p> The ultimate destination for music lovers to effortlessly organize, rediscover, and curate 
+                        their favorite songs—all in one place</p>
                 </div>
                 
             </div>

@@ -11,19 +11,46 @@ import { BACKEND_BASE_PATH } from "../constants/Navigation";
 
 const Profile = () => {
 
-    const params = useParams();
-    const albumId = params.id;
-    const [playlist, setInfo] = useState({});
+    const { id: playlistId } = useParams(); 
+    const [tracks, setTracks] = useState([]); 
 
     useEffect(() => {
-        fetch(`${BACKEND_BASE_PATH}/${albumId}`).then((res) => {
-            return res.json();
-        }).then((data) => {
-            setInfo(data);
-        }).catch(() => {
-            // alert("Something went wrong fetching city info!");
-        });
-    }, [albumId]);
+        fetch(`${BACKEND_BASE_PATH}/playlists/${playlistId}/tracks`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to fetch tracks");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setTracks(data.tracks || []); 
+            })
+            .catch((error) => {
+                console.error("Error fetching tracks:", error);
+            });
+    }, [playlistId]);
+
+    const handleRemoveTrack = (trackId: string) => {
+        fetch(`${BACKEND_BASE_PATH}/playlists/${playlistId}/tracks`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ trackId }),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to remove track");
+                }
+                return res.json();
+            })
+            .then(() => {
+                setTracks((prevTracks) => prevTracks.filter((track) => track.id !== trackId));
+            })
+            .catch((error) => {
+                console.error("Error removing track:", error);
+            });
+    };
 
     return (
 
@@ -42,16 +69,9 @@ const Profile = () => {
             <h2> Liked Songs</h2>
 
             <div className="songs">
-               
-                {/* <button className="add-song-button">
-                    <svg width="26" height="26" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-                    </svg>
-                    <p className="add-song-text">Add a new song</p>
-                </button> */}
              
                 <LikedCard 
-                    playlist={playlist}
+                    
                 />
                 
             </div>

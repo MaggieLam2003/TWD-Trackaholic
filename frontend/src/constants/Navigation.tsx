@@ -14,8 +14,10 @@ import HomePage from "../pages/Home";
  * If you've already deployed your app (using `fly launch` or `fly deploy`),
  * you can find the name by running `flyctl status`, under App > Name.
  */
-export const BACKEND_BASE_PATH = 'https://TWD-trackaholic.fly.dev/api';
+export const BACKEND_BASE_PATH = 'https://maggie.fly.dev/api';
 
+// https://fly.io/apps/maggie
+// maggie.fly.dev
 
 export const PATHS: {
     link: string;
