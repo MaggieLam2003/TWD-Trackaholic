@@ -1,14 +1,21 @@
 import { HeaderSimple } from "../components/Header";
-import { PATHS } from "../constants/Navigation";
+import { PATHS, USERPATHS } from "../constants/Navigation";
 import { Outlet } from "react-router-dom";
+import { useAuth } from "../auth/AuthUserProvider";
 
-const RootLayout = () => (
-    <div>
-        <HeaderSimple links={PATHS} />
+
+const RootLayout = () => {
+    const { user } = useAuth();
+
+    return (
         <div>
-            <Outlet />
+            {/* <HeaderSimple links={PATHS} /> */}
+            <HeaderSimple links={user ? USERPATHS : PATHS} />
+            <div>
+                <Outlet />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default RootLayout;

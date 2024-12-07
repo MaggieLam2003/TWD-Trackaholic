@@ -9,7 +9,7 @@ import { BACKEND_BASE_PATH } from '../constants/Navigation.tsx';
 
 const HomePage = () => {
 
-    // Placeholder- couldn't get the fetch to work????
+    // Placeholder- couldn't get the fetch to work?
 
 const placeholderAlbums = [
     {

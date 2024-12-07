@@ -23,6 +23,9 @@ const Album: React.FC = () => {
     const { id: albumId } = useParams<{ id: string }>();  
     const [albumInfo, setAlbumInfo] = useState<AlbumInfo | null>(null); 
     
+    const [tracks, setTracks] = useState<Track[]>([]); 
+    const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set()); // Track liked status
+    
 
     // Grab the album of id
     useEffect(() => {
@@ -40,7 +43,6 @@ const Album: React.FC = () => {
     // if liked - post to playlist
     // If unliked - delete from playlist
 
-    const [tracks, setTracks] = useState([]); 
 
     useEffect(() => {
         fetch(`${BACKEND_BASE_PATH}/albums/${albumId}/tracks`)
@@ -59,11 +61,36 @@ const Album: React.FC = () => {
     }, [albumId]);
 
     // Make a add track to playlist
+    // Only have one playlist for now
+    const addTrackToPlaylist = (trackId: string) => {
+        fetch(`${BACKEND_BASE_PATH}/playlists/1/tracks`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ trackId }), 
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to add track to playlist");
+                }
+                setLikedTracks((prevLiked) => new Set(prevLiked.add(trackId)));
+            })
+            .catch((error) => {
+                console.error("Error adding track to playlist:", error);
+            });
+    };
+
+    const handleTrackLike = (trackId: string) => {
+        if (!likedTracks.has(trackId)) {
+            addTrackToPlaylist(trackId); 
+        } else {
+            console.log("Track already liked"); 
+        }
+    };
 
 
 
-
-    
     return (
         <div>
             

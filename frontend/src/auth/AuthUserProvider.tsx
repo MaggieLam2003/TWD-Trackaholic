@@ -1,21 +1,43 @@
-// // other imports
-// import { WrappedComponentProps } from 'react-with-firebase-auth';
-// import { createComponentWithAuth } from '../utils/firebase';
+import { User } from "firebase/auth";
+import { createContext, useContext, useState, useEffect } from "react";
 
-// type AuthData = Omit<WrappedComponentProps, 'user'> & {
-//   user?: User | null;
-// };
+import { auth } from "../utils/firebase";
 
-// const AuthUserContext = createContext<AuthData | undefined>(undefined);
 
-// const AuthUserProvider: FC<WrappedComponentProps> = ({ children, ...auth }) => (
-//   <AuthUserContext.Provider value={auth}>{children}</AuthUserContext.Provider>
-// );
+type AuthData = {
+  user: User | null;
+};
 
-// export default createComponentWithAuth(AuthUserProvider);
+const AuthUserContext = createContext<AuthData>({ user: null });
 
-// export const useAuth = () => {
-//   const context = useContext(AuthUserContext);
-//   if (!context) throw new Error('AuthUserContext has no value');
-//   return context;
-// };
+export const AuthUserProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [user, setUser] = useState<AuthData>({ user: null });
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        setUser({ user: userAuth });
+      } else {
+        setUser({ user: null });
+      }
+    });
+  }, []);
+
+  return (
+    <AuthUserContext.Provider value={user}>{children}</AuthUserContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthUserContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within a AuthUserProvider");
+  }
+  return context;
+};
+
+export default AuthUserProvider;

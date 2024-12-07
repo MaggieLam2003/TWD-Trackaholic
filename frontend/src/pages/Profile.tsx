@@ -1,4 +1,5 @@
 import Placeholder from '../assets/Placeholder.jpg';
+import { useAuth } from "../auth/AuthUserProvider";
 
 import LikedCard from '../components/Liked-Card';
 
@@ -11,6 +12,7 @@ const placeholderImageUrl = '../assets/Placeholder-Song.jpeg';
 
 
 const Profile = () => {
+    const { user } = useAuth();
 
     const { id: playlistId } = useParams(); 
     const [tracks, setTracks] = useState([]); 
@@ -103,7 +105,7 @@ const Profile = () => {
             <div className='profile'>
                 <img src={Placeholder} alt="Profile" className="profile-image" />
                 <div className="user-info">
-                    <h1>Maggie Lam</h1>
+                    <h1>(user.displayName)</h1>
                     <p>MagieMoose123</p>
                     <p>exampleEmail@gmail.com</p>
                 </div>

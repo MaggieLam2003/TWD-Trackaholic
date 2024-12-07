@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/Error";
 import RootLayout from "./layouts/RootLayout";
 import { PATHS } from "./constants/Navigation";
+import AuthUserProvider from "./auth/AuthUserProvider";
 // import "./index.css";
 import "./App.css";
 
@@ -26,11 +27,11 @@ const router = createBrowserRouter([
 
 function App() {
     return (
-
+        <AuthUserProvider>
             <MantineProvider withGlobalStyles withNormalizeCSS>
                 <RouterProvider router={router} />
             </MantineProvider>
-       
+        </AuthUserProvider>
     );
 }
 

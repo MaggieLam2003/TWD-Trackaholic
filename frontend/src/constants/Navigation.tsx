@@ -1,6 +1,7 @@
 import Profile from "../pages/Profile";
 import Album from "../pages/Album";
 import HomePage from "../pages/Home";
+import LoginForm from "../pages/Login";
 
 /**
  * TODO: Modify this constant to point to the URL of your backend.
@@ -18,6 +19,8 @@ export const BACKEND_BASE_PATH = 'https://maggie.fly.dev/api';
 
 // https://fly.io/apps/maggie
 // maggie.fly.dev
+
+
 
 export const PATHS: {
     link: string;
@@ -38,5 +41,38 @@ export const PATHS: {
         link: "/profile",
         label: "Profile",
         element: <Profile />,
+    },
+    {
+        link: "/login",
+        label: "Login",
+        element: <LoginForm />,
+    },
+];
+
+
+export const USERPATHS: {
+    link: string;
+    label: string;
+    element?: JSX.Element;
+}[] = [
+    {
+        link: "/",
+        label: "Home",
+        element: <HomePage />,
+    },
+    {
+        link: "/album",
+        label: "Album",
+        element: <Album />,
+    },
+    {
+        link: "/profile",
+        label: "Profile",
+        element: <Profile />,
+    },
+    {
+        link: "/login",
+        label: "Log Out",
+        element: <LoginForm />,
     },
 ];

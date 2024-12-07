@@ -235,38 +235,60 @@ button {
 }
 
 /* Login */
+.login {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 
-.login-page {
+    margin-top: 200px;
+}
+/* .logout-button {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    width: 50%;
+} */
+
+.login-desc {
+    text-align: center;
+    justify-content: center;
+}
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    justify-content: center;
+}
+
+.signin {
+    background-color: #4285f4;
+    color: white;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+    gap: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.login-form {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.login-button {
-    background-color: #4285f4;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.login-button:hover {
+.signin:hover {
     background-color: #357ae8;
+    transform: scale(1.05);
 }
 
-.welcome-message {
-    text-align: center;
+.text-button p {
+    margin: 0;
+    font-weight: 500;
 }
+
+.logout-button button {
+    background-color: #ff5252;
+    color: white;
+}
+
+.logout-button button:hover {
+    background-color: #e84141;
+    transform: scale(1.05);
+}
+
