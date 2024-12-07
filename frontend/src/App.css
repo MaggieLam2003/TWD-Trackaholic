@@ -120,6 +120,7 @@ body {
     height: 500px;
     border-radius: 50%;
     object-fit: cover;
+    background-color: #357ae8;
     margin-right: 150px;
 }
 

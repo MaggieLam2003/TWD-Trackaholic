@@ -103,7 +103,7 @@ const Profile = () => {
     return (
         <div>
             <div className='profile'>
-                <img src={user?.photoURL ?? Placeholder} alt="Profile" className="profile-image" />
+                <img src={user?.photoURL} alt="Profile" className="profile-image" />
                 <div className="user-info">
                     <h1>{user?.displayName ?? "Guest"}</h1>
                     <p>{user?.email ?? "guest@example.com"}</p>
