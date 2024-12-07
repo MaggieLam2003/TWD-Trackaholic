@@ -1,5 +1,5 @@
 html {
-    background: linear-gradient(to bottom, rgb(29, 0, 29), black);
+    /* background: linear-gradient(to bottom, rgb(29, 0, 29), black); */
     
     margin: 0;
     padding: 0;
@@ -20,9 +20,8 @@ body {
 }
 .banner div {
     position: absolute;
-    top: 40%;
+    top: 280px;
     right: 0;
-    transform: translateY(-50%);
     color: white;
     padding: 10px;
     border-radius: 5px;
@@ -72,16 +71,26 @@ body {
 
 .card-content {
     padding: 16px;
+    color: white;
+    text-decoration: none;
 }
 
 .card-title {
     font-size: 1.5em;
-    margin: 0.5em 0;
+    padding: 0
+
 }
 
+.card-link {
+    text-decoration: none;
+}
 .card-artist {
     font-size: 1em;
     color: #ffffff;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 /* Profile */
@@ -113,6 +122,33 @@ body {
     object-fit: cover;
     margin-right: 150px;
 }
+
+.liked-songs h1{
+    padding-left: 24px;
+}
+
+.x-button {
+    background-color: rgb(179, 236, 245);
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.x-button svg {
+    color: #ffffff;
+}
+
+.x-button:hover {
+    background-color: rgb(223, 62, 62);
+}
+
+.remove {
+    display:flex;
+    flex-direction: row;
+    font-size: 1rem;
+    align-items: center;
+}
+
 
 /* Album */
 
@@ -170,9 +206,16 @@ body {
     color: #ffffff;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .track-heart {
     cursor: pointer;
     color: #ffffff;
+    background-color: #333;
 }
 
 .track-heart:hover {

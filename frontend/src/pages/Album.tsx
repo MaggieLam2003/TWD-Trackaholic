@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_BASE_PATH } from "../constants/Navigation";
-import Placeholder from '../assets/Placeholder.jpg';
+import Placeholder from '../assets/Placeholder-Album.jpeg';
 import Track from '../components/Track';
 
 interface Track {
@@ -22,9 +22,9 @@ interface AlbumInfo {
 const Album: React.FC = () => {
     const { id: albumId } = useParams<{ id: string }>();  
     const [albumInfo, setAlbumInfo] = useState<AlbumInfo | null>(null); 
-    const [likedTracks, setLikedTracks] = useState<Set<string>>(new Set());  
-    const [playlist, setPlaylist] = useState<string[]>([]);  
+    
 
+    // Grab the album of id
     useEffect(() => {
         fetch(`${BACKEND_BASE_PATH}/albums/${albumId}`)
             .then((res) => res.json())
@@ -32,70 +32,85 @@ const Album: React.FC = () => {
                 setAlbumInfo(data);
             })
             .catch(() => {
-                alert("Something went wrong fetching album info!");
+                // alert("Something went wrong fetching album info!");
             });
     }, [albumId]);
 
-    const handleLikeTrack = (trackId: string) => {
-        setLikedTracks((prevLikes) => {
-            const newLikes = new Set(prevLikes);
-            if (newLikes.has(trackId)) {
-                newLikes.delete(trackId);
-            } else {
-                newLikes.add(trackId);
-            }
-            return newLikes;
-        });
-    };
+    // Add a fetch tracks from album 
+    // if liked - post to playlist
+    // If unliked - delete from playlist
 
-    const handleAddToPlaylist = (trackId: string) => {
-        setPlaylist((prevPlaylist) => {
-            if (!prevPlaylist.includes(trackId)) {
-                return [...prevPlaylist, trackId];
-            }
-            return prevPlaylist;
-        });
-    };
+    const [tracks, setTracks] = useState([]); 
+
+    useEffect(() => {
+        fetch(`${BACKEND_BASE_PATH}/albums/${albumId}/tracks`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to fetch tracks");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setTracks(data.tracks || []); 
+            })
+            .catch((error) => {
+                console.error("Error fetching tracks:", error);
+            });
+    }, [albumId]);
+
+    // Make a add track to playlist post
+
+    // should only remove IF the track is in the playlist
+
+
 
     
     return (
         <div>
-            {albumInfo && (
-                <div className="album">
-                    <img src={Placeholder} className="album-image" alt="Album Cover" />
-                    <div className="album-info">
-                        <h1>{albumInfo.name}</h1>
-                        <h2>{albumInfo.artist}</h2>
-                        <h3>Release Date: {albumInfo.releaseDate}</h3>
-                        <p>Tracks: {albumInfo.tracks.length}</p>
-                    </div>
+            
+            <div className="album">
+                <img src={Placeholder} className="album-image" alt="Album Cover" />
+                <div className="album-info">
+                    <h1>Album name</h1>
+                    <h2>Artist</h2>
+                    <h3>Release Date</h3>
+                    <p>Tracks</p>
                 </div>
-            )}
+            </div>
+          
 
             <hr />
 
             <div className="tracks">
                 <h2>Tracks</h2>
-                {albumInfo.tracks.map((track) => (
-                    <Track
-                        key={track.id}
-                        track={track}
-                        liked={likedTracks.has(track.id)}
-                        onLike={() => handleLikeTrack(track.id)}
-                        onAddToPlaylist={() => handleAddToPlaylist(track.id)}
-                    />
-                ))}
+
+                <Track
+                    songName="Song Name"
+                    songTime="2:30"
+                    artists="Artist"
+                    trackId="trackId"
+                    playlistId="playlistId"
+                />
+
+                <Track
+                    songName="Song Name"
+                    songTime="2:30"
+                    artists="Artist"
+                    trackId="trackId"
+                    playlistId="playlistId"
+                />
+
+                <Track
+                    songName="Song Name"
+                    songTime="2:30"
+                    artists="Artist"
+                    trackId="trackId"
+                    playlistId="playlistId"
+                />
+                
             </div>
 
-            <div className="playlist">
-                <h3>Your Playlist</h3>
-                <ul>
-                    {playlist.map((trackId) => {
-                        const track = albumInfo.tracks.find((track) => track.id === trackId);
-                        return track ? <li key={trackId}>{track.name}</li> : null;
-                    })}
-                </ul>
-            </div>
+            
         </div>
     );
 };
