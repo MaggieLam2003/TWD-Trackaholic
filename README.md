@@ -89,3 +89,11 @@ Profile Page
 - add song 
 - edit playlist name
 
+#  DEPLOYMENT APP LINK?
+
+ [Admin URL](https://fly.io/apps/twd-trackaholic)
+
+ Hostname: twd-trackaholic.fly.dev
+
+Couldn't deploy- this error? Error: failed to fetch an image or build from source: error building: failed to solve: process "/bin/sh -c pnpm install" did not complete successfully: exit code: 1
+
